@@ -3,25 +3,43 @@
 
 <head>
     <title>Employees List</title>
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.webp') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .sort-arrow {
             display: inline-block;
             margin-left: 5px;
         }
+
+        .pagination .page-item {
+            margin: 0 5px;
+        }
+
+        .header-style {
+            color: black
+        }
     </style>
 </head>
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Employees List</h1>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div></div>
+            <div>
+                <h1 class="text-center">Employees List</h1>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-dark text-right"><a style="text-decoration: none; color:white"
+                        href="/upload">Back to Upload CSV</a></button>
+            </div>
+        </div>
+
 
         <!-- Search Form -->
         <form method="GET" action="{{ route('employees.index') }}" class="d-flex mb-4">
             <input type="text" name="search" class="form-control me-2" placeholder="Search employees..."
                 value="{{ request('search') }}">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-dark">Search</button>
         </form>
 
         <!-- Employees Table -->
@@ -30,7 +48,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>
-                            <a
+                            <a class="header-style"
                                 href="{{ route('employees.index', ['sort' => 'EmployeeName', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                                 Employee Name
                                 @if (request('sort') === 'EmployeeName')
@@ -43,7 +61,7 @@
                             </a>
                         </th>
                         <th>
-                            <a
+                            <a class="header-style"
                                 href="{{ route('employees.index', ['sort' => 'Email', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                                 Email
                                 @if (request('sort') === 'Email')
@@ -56,7 +74,7 @@
                             </a>
                         </th>
                         <th>
-                            <a
+                            <a class="header-style"
                                 href="{{ route('employees.index', ['sort' => 'Number', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                                 Number
                                 @if (request('sort') === 'Number')
@@ -69,7 +87,7 @@
                             </a>
                         </th>
                         <th>
-                            <a
+                            <a class="header-style"
                                 href="{{ route('employees.index', ['sort' => 'Designation', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                                 Designation
                                 @if (request('sort') === 'Designation')
@@ -82,7 +100,7 @@
                             </a>
                         </th>
                         <th>
-                            <a
+                            <a class="header-style"
                                 href="{{ route('employees.index', ['sort' => 'Address', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                                 Address
                                 @if (request('sort') === 'Address')
@@ -95,7 +113,7 @@
                             </a>
                         </th>
                         <th>
-                            <a
+                            <a class="header-style"
                                 href="{{ route('employees.index', ['sort' => 'created_at', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">
                                 Created At
                                 @if (request('sort') === 'created_at')
@@ -129,12 +147,17 @@
         </div>
 
         <!-- Pagination Links -->
-        <div class="d-flex justify-content-center">
-            {{ $employees->appends(request()->except('page'))->links('pagination::bootstrap-5') }}
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+
+            </div>
+            <div>
+                {{ $employees->appends(request()->except('page'))->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies (optional) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
